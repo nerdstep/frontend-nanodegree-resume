@@ -6,13 +6,13 @@ function template(helper, replaceValue, searchValue) {
 var resume = {
   bio: {
     name          : 'Robin Hood',
-    role          : 'Heroic Outlaw',
+    role          : 'Legendary Outlaw',
     contacts      : {
       mobile  : '555.RBN.HOOD',
       email   : 'robin.hood@outlaw.com',
       github  : 'rhood',
       twitter : '@robinhood',
-      location: 'Nottinghamshire, England'
+      location: 'Nottingham, England'
     },
     welcomeMessage: 'Expert Re-distributor of Wealth and Defender of the Poor',
     skills        : ['Archery', 'Swordplay', 'Disguise', 'Brewing Ale'],
@@ -25,9 +25,16 @@ var resume = {
         .append(template(HTMLbioPic, this.biopic))
         .append(template(HTMLWelcomeMsg, this.welcomeMessage))
         .append(HTMLskillsStart)
-        .fadeIn();
+        .show();
 
-      $('#name').after(template(HTMLheaderRole, this.role));
+      $('.biopic').addClass('animated fadeInLeft');
+      $('.welcome-message').addClass('animated fadeInDown');
+
+      $('#name')
+        .addClass('animated fadeInDown')
+        .after(template(HTMLheaderRole, this.role))
+        .next()
+        .addClass('role animated lightSpeedIn');
 
       $('#topContacts')
         .append(template(HTMLmobile, this.contacts.mobile))
@@ -35,12 +42,15 @@ var resume = {
         .append(template(HTMLtwitter, this.contacts.twitter))
         .append(template(HTMLgithub, this.contacts.github))
         .append(template(HTMLlocation, this.contacts.location))
-        .show();
+        .show()
+        .addClass('animated fadeIn');
 
-      $('#skillsH3').text('Masteries');
+      $('#skillsH3').text('Masteries').addClass('animated fadeIn');
 
       for (i = 0; i < this.skills.length; i++) {
-        $('#skills').append(template(HTMLskills, '<a href="http://lmgtfy.com/?q=' + this.skills[i] + '">' + this.skills[i] + '</a>'));
+        $('#skills')
+          .append(template(HTMLskills, '<a href="http://lmgtfy.com/?q=' + this.skills[i] + '">' + this.skills[i] + '</a>'))
+          .addClass('animated zoomIn');
       }
     }
   },
@@ -75,7 +85,7 @@ var resume = {
         $el.append($frag);
       }
 
-      $el.slideDown();
+      $el.show().addClass('animated zoomInDown');
     }
   },
   work: {
@@ -103,7 +113,8 @@ var resume = {
         $el.append($frag);
       }
 
-      $el.slideDown();    }
+      $el.show().addClass('animated zoomInDown');
+    }
   },
   projects: {
     projects   : [{
@@ -128,7 +139,7 @@ var resume = {
         $el.append($frag);
       }
 
-      $el.slideDown();
+      $el.show().addClass('animated zoomInDown');
     }
   }
 };
