@@ -45,13 +45,13 @@ var bio = {
 
     $('#skillsH3').text('Masteries').addClass('animated zoomInUp');
 
-    for (i = 0; i < this.skills.length; i++) {
-      $('#skills')
-        .append(template(HTMLskills, '<a href="http://lmgtfy.com/?q=' + this.skills[i] + '">' + this.skills[i] + '</a>'))
-        ;
-    }
+    this.skills.forEach(function (item) {
+      $('#skills').append(template(HTMLskills, '<a href="http://lmgtfy.com/?q=' + item + '">' + item + '</a>'));
+    });
 
     $('#footerContacts').append($('#topContacts').html());
+    $('#letsConnect').show();
+    $('#mapDiv').append(googleMap).show().addClass('animated zoomIn');
   }
 };
 
@@ -78,11 +78,10 @@ var education = {
     url   : 'http://en.wikipedia.org/wiki/Quarterstaff'
   }],
   display  : function () {
-    var $el = $('#education'), i, item, $frag;
+    var $el = $('#education');
 
-    for (i = 0; i < this.schools.length; i++) {
-      item = this.schools[i];
-      $frag = $(HTMLschoolStart);
+    this.schools.forEach(function (item) {
+      var $frag = $(HTMLschoolStart);
 
       $frag
         .append(template(HTMLschoolName, item.name) + template(HTMLschoolDegree, item.degree))
@@ -92,13 +91,12 @@ var education = {
 
       $el.append($frag);
       $frag.find('a').attr({ href: item.url });
-    }
+    });
 
     $el.append(HTMLonlineClasses);
 
-    for (i = 0; i < this.onlineCourses.length; i++) {
-      item = this.onlineCourses[i];
-      $frag = $(HTMLschoolStart);
+    this.onlineCourses.forEach(function (item) {
+      var $frag = $(HTMLschoolStart);
 
       $frag
         .append(template(HTMLonlineTitle, item.title) + template(HTMLonlineSchool, item.school))
@@ -107,7 +105,7 @@ var education = {
 
       $el.append($frag);
       $frag.find('a').attr({ href: item.url });
-    }
+    });
 
     $el.show().addClass('animated fadeInUpBig');
   }
@@ -130,11 +128,10 @@ var work = {
     url         : 'http://en.wikipedia.org/wiki/Third_Crusade'
   }],
   display: function () {
-    var $el = $('#workExperience'), i, item, $frag;
+    var $el = $('#workExperience');
 
-    for (i = 0; i < this.jobs.length; i++) {
-      item = this.jobs[i];
-      $frag = $(HTMLworkStart);
+    this.jobs.forEach(function (item) {
+      var $frag = $(HTMLworkStart);
 
       $frag
         .append(template(HTMLworkEmployer, item.employer) + template(HTMLworkTitle, item.title))
@@ -144,7 +141,7 @@ var work = {
 
       $el.append($frag);
       $frag.find('a').attr({ href: item.url });
-    }
+    });
 
     $el.show().addClass('animated fadeInUpBig');
   }
@@ -154,24 +151,27 @@ var projects = {
   projects   : [{
     title      : 'Lorem Ipsum',
     dates      : 1189,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consequat cursus velit, et rutrum nibh volutpat vitae. Vivamus sed enim sit amet tortor egestas interdum ac at nulla.',
-    images     : []
+    description: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
+    images     : ['images/project1.jpg','images/project2.jpg','images/project3.jpg']
   }],
   display: function () {
-    var $el = $('#projects'), i, item, $frag;
+    var $el = $('#projects');
 
-    for (i = 0; i < this.projects.length; i++) {
-      item = this.projects[i];
-      $frag = $(HTMLprojectStart);
+    this.projects.forEach(function (item) {
+
+      var $frag = $(HTMLprojectStart);
 
       $frag
-        .append(template(HTMLprojectTitle, item.title))
-        .append(template(HTMLprojectDates, item.dates))
-        .append(template(HTMLprojectDescription, item.description))
-        .append(template(HTMLprojectImage, item.images));
+      .append(template(HTMLprojectTitle, item.title))
+      .append(template(HTMLprojectDates, item.dates))
+      .append(template(HTMLprojectDescription, item.description));
+
+      item.images.forEach(function (img) {
+        $frag.append(template(HTMLprojectImage, img));
+      });
 
       $el.append($frag);
-    }
+    });
 
     $el.show().addClass('animated fadeInUpBig');
   }
@@ -183,8 +183,4 @@ $(function () {
   work.display();
   projects.display();
   education.display();
-
-  $('#letsConnect').show();
-
-  $('#mapDiv').append(googleMap).show().addClass('animated zoomIn');
 });
